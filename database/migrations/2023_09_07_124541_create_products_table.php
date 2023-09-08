@@ -26,7 +26,7 @@ return new class extends Migration
             $table->boolean('featured')->default(false);
             $table->unsignedInteger('quantity')->default(10);
             $table->string('image');
-            $table->text('images');
+            $table->text('images')->nullable();
             $table->bigInteger('category_id')->unsignedInteger()->nullable();
             $table->timestamps();
         });
