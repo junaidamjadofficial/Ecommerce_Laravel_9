@@ -9,12 +9,15 @@ use Livewire\WithPagination;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 
-class ShopComponent extends Component
+class CategoryComponent extends Component
 {
     use WithPagination;
     public $pageSize = 12;
     public $orderby="Default Sorting";
-   
+    public $slug;
+    public function mount($slug){
+        $this->slug=$slug;
+    }
     public function store($product_id,$product_name,$product_Price)
     {
         Cart::add($product_id,$product_name,1, $product_Price)->associate('\App\Models\product');
@@ -29,19 +32,22 @@ class ShopComponent extends Component
     }
     public function render()
     {
+        $category=category::where('slug',$this->slug)->first();
+        $category_id=$category->id;
+        $category_name=$category->name;
         if($this->orderby == 'Price: Low to High'){
-            $products=product::orderBy('regular_price','ASC')->paginate($this->pageSize);
+            $products=product::where('category_id',$category_id)->orderBy('regular_price','ASC')->paginate($this->pageSize);
         }
         else if($this->orderby == 'Price: High to Low'){
-            $products=product::orderBy('regular_price','DESC')->paginate($this->pageSize);
+            $products=product::where('category_id',$category_id)->orderBy('regular_price','DESC')->paginate($this->pageSize);
         }
         else if($this->orderby == 'latest'){
-            $products=product::orderBy('regular_price','DESC')->paginate($this->pageSize);
+            $products=product::where('category_id',$category_id)->orderBy('regular_price','DESC')->paginate($this->pageSize);
         }
         else{
-            $products=product::paginate($this->pageSize);
+            $products=product::where('category_id',$category_id)->paginate($this->pageSize);
         }
         $categories=category::orderBy('name','ASC')->get();
-        return view('livewire.shop-component',compact('products','categories'));
+        return view('livewire.category-component',compact('products','categories','category_name'));
     }
 }

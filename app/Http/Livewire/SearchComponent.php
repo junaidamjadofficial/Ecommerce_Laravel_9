@@ -9,11 +9,18 @@ use Livewire\WithPagination;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 
-class ShopComponent extends Component
+class SearchComponent extends Component
 {
     use WithPagination;
     public $pageSize = 12;
     public $orderby="Default Sorting";
+    public $q;
+    public $search_term;
+
+    public function mount(){
+        $this->fill(request()->only('q'));
+        $this->search_term='%'. $this->q .'%';
+    }
    
     public function store($product_id,$product_name,$product_Price)
     {
@@ -30,18 +37,18 @@ class ShopComponent extends Component
     public function render()
     {
         if($this->orderby == 'Price: Low to High'){
-            $products=product::orderBy('regular_price','ASC')->paginate($this->pageSize);
+            $products=product::where('name','like',$this->search_term)->orderBy('regular_price','ASC')->paginate($this->pageSize);
         }
         else if($this->orderby == 'Price: High to Low'){
-            $products=product::orderBy('regular_price','DESC')->paginate($this->pageSize);
+            $products=product::where('name','like',$this->search_term)->orderBy('regular_price','DESC')->paginate($this->pageSize);
         }
         else if($this->orderby == 'latest'){
-            $products=product::orderBy('regular_price','DESC')->paginate($this->pageSize);
+            $products=product::where('name','like',$this->search_term)->orderBy('regular_price','DESC')->paginate($this->pageSize);
         }
         else{
-            $products=product::paginate($this->pageSize);
+            $products=product::where('name','like',$this->search_term)->paginate($this->pageSize);
         }
         $categories=category::orderBy('name','ASC')->get();
-        return view('livewire.shop-component',compact('products','categories'));
+        return view('livewire.search-component',compact('products','categories'));
     }
 }
