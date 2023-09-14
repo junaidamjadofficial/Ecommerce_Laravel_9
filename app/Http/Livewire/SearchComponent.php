@@ -24,7 +24,8 @@ class SearchComponent extends Component
    
     public function store($product_id,$product_name,$product_Price)
     {
-        Cart::add($product_id,$product_name,1, $product_Price)->associate('\App\Models\product');
+        Cart::instance('cart')->add($product_id,$product_name,1, $product_Price)->associate('\App\Models\product');
+        $this->emitTo('cart-icon-component','refreshComponent');
         return redirect()->route('shop.cart')->with('success','item has been added in a Cart');
     }
     public function changePageSize($Size){

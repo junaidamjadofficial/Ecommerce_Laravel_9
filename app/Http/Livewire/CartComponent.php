@@ -13,19 +13,19 @@ class CartComponent extends Component
         return view('livewire.cart-component');
     }
     public function destroy($id){
-        Cart::remove($id);
+        Cart::instance('cart')->remove($id);
         $this->emitTo('cart-icon-component','refreshComponent');
         session()->flash('success_message','item has been removed');
     }
     public function increaseQuantity($rowId){
-        $product=Cart::get($rowId);
+        $product=Cart::instance('cart')->get($rowId);
         $qty=$product->qty+1;
-        Cart::update($rowId,$qty);
+        Cart::instance('cart')->update($rowId,$qty);
         $this->emitTo('cart-icon-component','refreshComponent');
     }
 
     public function clearAll(){
-        Cart::destroy();
+        Cart::instance('cart')->destroy();
         $this->emitTo('cart-icon-component','refreshComponent');
         session()->flash('success_message','item has been clear');
     }
@@ -33,7 +33,7 @@ class CartComponent extends Component
     public function decreaseQuantity($rowId){
         $product=Cart::get($rowId);
         $qty=$product->qty-1;
-        Cart::update($rowId,$qty);
+        Cart::instance('cart')->update($rowId,$qty);
         $this->emitTo('cart-icon-component','refreshComponent');
     }
     
