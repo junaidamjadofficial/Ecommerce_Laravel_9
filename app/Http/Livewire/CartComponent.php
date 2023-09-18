@@ -31,7 +31,7 @@ class CartComponent extends Component
     }
     
     public function decreaseQuantity($rowId){
-        $product=Cart::get($rowId);
+        $product=Cart::instance('cart')->get($rowId);
         $qty=$product->qty-1;
         Cart::instance('cart')->update($rowId,$qty);
         $this->emitTo('cart-icon-component','refreshComponent');

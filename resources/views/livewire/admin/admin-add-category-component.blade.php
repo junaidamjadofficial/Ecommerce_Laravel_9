@@ -13,7 +13,7 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href="/" rel="nofollow">Home</a>
-                    <span></span> Add New Categories
+                    <span></span> Add New Product
                 </div>
             </div>
         </div>
@@ -25,24 +25,35 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        Add New Categories
+                                        Add New Product
                                     </div>
                                     <div class="col-md-m6">
-                                        <a href="{{ route('admin.categories') }}" class="btn btn-success">All Categories</a>
+                                        <a href="{{ route('admin.product') }}" class="btn btn-success  float-end">Add New Product</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form action="">
-                                    <div class="mt-3 mb-3">
-                                        <label for="name">Name</label>
-                                        <input type="text" name="name" class="form-control" placeholder="Enter the Category name">
+                                <form wire:submit.prevent="storeProduct">
+                                    @if (Session::has('message'))
+                                        <div class="alert alert-success">{{ Session::get('message') }}</div>
+                                    @endif
+                                    <div class="mt-3">
+                                        <label class="form-label" for="name">Name</label>
+                                        <input type="text" name="name" class="form-control" placeholder="Enter the Product name"  wire:model="name" wire:keyup="generateSlug">
+                                        @error('name')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
-                                    <div class="mt-3 mb-3">
-                                        <label for="Slug">Slug</label>
-                                        <input type="text" name="slug" class="form-control" placeholder="Enter the Category Slug">
+                                    <div class="mt-3">
+                                        <label class="form-label" for="Slug">Slug</label>
+                                        <input type="text" name="slug" class="form-control" placeholder="Enter the Product Slug" wire:model="slug">
+                                        @error('slug')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
-                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                    
+                                    
+                                    <button class="btn btn-primary  float-end" type="submit">Submit</button>
                                 </form>
 
                             </div>
@@ -52,6 +63,4 @@
             </div>
         </section>
     </main>
-</div><div>
-    {{-- The whole world belongs to you. --}}
 </div>

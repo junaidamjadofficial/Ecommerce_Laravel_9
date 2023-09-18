@@ -78,7 +78,7 @@
                                             <div class="product-img product-img-zoom">
                                                  <a href="{{ route('product.detail',['slug'=>$product->slug]) }}">
                                                     <img class="default-img"
-                                                        src="{{ asset('assets/imgs/shop/product-') }}{{ $product->id }}-1.jpg"
+                                                        src="{{ asset('assets/imgs/products') }}/{{ $product->image }}"
                                                         alt="{{ $product->name }}">
                                                     <img class="hover-img"
                                                         src="{{ asset('assets/imgs/shop/product-2-2.jpg')}}"
