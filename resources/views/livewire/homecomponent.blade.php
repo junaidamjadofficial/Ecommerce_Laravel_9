@@ -90,45 +90,48 @@
                 <div class="tab-content wow fadeIn animated" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
                         <div class="row product-grid-4">
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
-                                <div class="product-cart-wrap mb-30">
-                                    <div class="product-img-action-wrap">
-                                        <div class="product-img product-img-zoom">
-                                            <a href="product-details.html">
-                                                <img class="default-img" src="assets/imgs/shop/product-1-1.jpg" alt="">
-                                                <img class="hover-img" src="assets/imgs/shop/product-1-2.jpg" alt="">
-                                            </a>
+                            @foreach ($fproducts as $fproduct)
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
+                                    <div class="product-cart-wrap mb-30">
+                                        <div class="product-img-action-wrap">
+                                            <div class="product-img product-img-zoom">
+                                                <a href="{{ route('product.detail',['slug'=>$fproduct->slug]) }}">
+                                                    <img class="default-img" src="{{ asset('assets/imgs/products') }}/{{ $fproduct->image }}" alt="{{ $fproduct->name }}">
+                                                    <img class="hover-img" src="assets/imgs/shop/product-1-2.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="product-action-1">
+                                                {{-- <a aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
+                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="wishlist.php"><i class="fi-rs-heart"></i></a>
+                                                <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i class="fi-rs-shuffle"></i></a> --}}
+                                            </div>
+                                            <div class="product-badges product-badges-position product-badges-mrg">
+                                                <span class="hot">Hot</span>
+                                            </div>
                                         </div>
-                                        <div class="product-action-1">
-                                            <a aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="wishlist.php"><i class="fi-rs-heart"></i></a>
-                                            <a aria-label="Compare" class="action-btn hover-up" href="compare.php"><i class="fi-rs-shuffle"></i></a>
-                                        </div>
-                                        <div class="product-badges product-badges-position product-badges-mrg">
-                                            <span class="hot">Hot</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-content-wrap">
-                                        <div class="product-category">
-                                            <a href="shop.html">Clothing</a>
-                                        </div>
-                                        <h2><a href="product-details.html">Colorful Pattern Shirts</a></h2>
-                                        <div class="rating-result" title="90%">
-                                            <span>
-                                                <span>90%</span>
-                                            </span>
-                                        </div>
-                                        <div class="product-price">
-                                            <span>$238.85 </span>
-                                            <span class="old-price">$245.8</span>
-                                        </div>
-                                        <div class="product-action-1 show">
-                                            <a aria-label="Add To Cart" class="action-btn hover-up" href="cart.html"><i class="fi-rs-shopping-bag-add"></i></a>
+                                        <div class="product-content-wrap">
+                                            <div class="product-category">
+                                                <a href="shop.html">Clothing</a>
+                                            </div>
+                                            <h2><a href="product-details.html">{{ $fproduct->name }}</a></h2>
+                                            <div class="rating-result" title="90%">
+                                                <span>
+                                                    <span>90%</span>
+                                                </span>
+                                            </div>
+                                            <div class="product-price">
+                                                <span>${{ $fproduct->regular_price }} </span>
+                                                {{-- <span class="old-price">$245.8</span> --}}
+                                            </div>
+                                            <div class="product-action-1 show">
+                                                <a aria-label="Add To Cart" class="action-btn hover-up" href="#" wire:click.prevent="store({{ $fproduct->id }},'{{ $fproduct->name }}',{{ $fproduct->regular_price }})"><i class="fi-rs-shopping-bag-add"></i></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
+                            @endforeach
+                            
+                            {{-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 col-6">
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
@@ -389,7 +392,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <!--End product-grid-4-->
                     </div>
@@ -1028,54 +1031,14 @@
                 <div class="carausel-6-columns-cover position-relative">
                     <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-arrows"></div>
                     <div class="carausel-6-columns" id="carausel-6-columns">
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="shop.html"><img src="assets/imgs/shop/category-thumb-1.jpg" alt=""></a>
-                            </figure>
-                            <h5><a href="shop.html">T-Shirt</a></h5>
-                        </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="shop.html"> <img src="assets/imgs/shop/category-thumb-2.jpg" alt=""></a>
-                            </figure>
-                            <h5><a href="shop.html">Bags</a></h5>
-                        </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="shop.html"><img src="assets/imgs/shop/category-thumb-3.jpg" alt=""></a>
-                            </figure>
-                            <h5><a href="shop.html">Sandan</a></h5>
-                        </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="shop.html"><img src="assets/imgs/shop/category-thumb-4.jpg" alt=""></a>
-                            </figure>
-                            <h5><a href="shop.html">Scarf Cap</a></h5>
-                        </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="shop.html"><img src="assets/imgs/shop/category-thumb-5.jpg" alt=""></a>
-                            </figure>
-                            <h5><a href="shop.html">Shoes</a></h5>
-                        </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="shop.html"><img src="assets/imgs/shop/category-thumb-6.jpg" alt=""></a>
-                            </figure>
-                            <h5><a href="shop.html">Pillowcase</a></h5>
-                        </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="shop.html"><img src="assets/imgs/shop/category-thumb-7.jpg" alt=""></a>
-                            </figure>
-                            <h5><a href="shop.html">Jumpsuits</a></h5>
-                        </div>
-                        <div class="card-1">
-                            <figure class=" img-hover-scale overflow-hidden">
-                                <a href="shop.html"><img src="assets/imgs/shop/category-thumb-8.jpg" alt=""></a>
-                            </figure>
-                            <h5><a href="shop.html">Hats</a></h5>
-                        </div>
+                        @foreach ($pCategories as $pcategory)
+                            <div class="card-1">
+                                <figure class=" img-hover-scale overflow-hidden">
+                                    <a href="{{ route('product.category',['slug' => $pcategory->slug]) }}"><img src="{{ asset('assets/imgs/categories') }}/{{ $pcategory->image }}" alt="{{ $pcategory->name }}"></a>
+                                </figure>
+                                <h5><a href="{{ route('product.category',['slug' => $pcategory->slug]) }}">{{ $pcategory->name }}</a></h5>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

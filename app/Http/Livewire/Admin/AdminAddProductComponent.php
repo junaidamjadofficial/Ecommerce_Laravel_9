@@ -20,7 +20,7 @@ class AdminAddProductComponent extends Component
     public $description;
     public $short_description;
     public $stock_status = 'instock';
-    public $featured = 0;
+    public $featured;
     public $quantity;
     public $sale_price;
     public $image;

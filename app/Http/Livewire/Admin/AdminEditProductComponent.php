@@ -25,8 +25,8 @@ class AdminEditProductComponent extends Component
     public $category_id;
     public $description;
     public $short_description;
-    public $stock_status = 'instock';
-    public $featured = 0;
+    public $stock_status;
+    public $featured;
     public $quantity;
     public $sale_price;
     public $image;
@@ -56,11 +56,11 @@ class AdminEditProductComponent extends Component
             'slug' => 'required',
             'image' => 'required',
             'sku' => 'required',
+            'featured'=>'required',
             'category_id' => 'required',
             'description' => 'required',
             'regular_price' => 'required',
             'short_description' => 'required',
-            'featured' => 'required',
             'quantity' => 'required',
             'sale_price' => 'required',
             'stock_status' => 'required',
@@ -83,10 +83,11 @@ class AdminEditProductComponent extends Component
                 $imageName = Carbon::now()->timestamp . '.' . $this->newimage->extension();
                 $this->newimage->storeAs('products', $imageName);
                 $product->image = $imageName;
-                $product->save();
-                session()->flash('message', 'Product has been updated successfully!');
-                return redirect()->route('admin.product');
+               
             }
+            $product->save();
+            session()->flash('message', 'Product has been updated successfully!');
+            return redirect()->route('admin.product');
         }
         else
         {

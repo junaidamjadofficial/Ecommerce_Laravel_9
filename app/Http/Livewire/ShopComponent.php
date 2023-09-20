@@ -31,7 +31,7 @@ class ShopComponent extends Component
     {
         Cart::instance('cart')->add($product_id,$product_name,1, $product_Price)->associate('\App\Models\product');
         $this->emitTo('cart-icon-component','refreshComponent');
-        return redirect()->route('shop.cart')->with('success','item has been added in a Cart');
+        // return redirect()->route('shop.cart')->with('success','item has been added in a Cart');
     }
     public function changePageSize($Size){
         $this->pageSize=$Size;

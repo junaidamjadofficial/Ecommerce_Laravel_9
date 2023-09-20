@@ -51,6 +51,28 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+                                    <div class="mt-3">
+                                        <label class="form-label" for="image">Image</label>
+                                        <input type="file" name="image" class="form-control" wire:model="newimage">
+                                        @if ($newimage)
+                                            <img src="{{ $newimage->temporaryUrl() }}" width="100">
+                                        @else
+                                            <img src="{{ asset('assets/imgs/categories') }}/{{ $image }}" width="100">
+                                        @endif
+                                        @error('newimage')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="mt-3 mb-3">
+                                        <label class="form-label" for="is_popular">Popular</label>
+                                        <select name="is_popular" class="form-select" wire:model="is_popular">
+                                            <option value="0" selected>no</option>
+                                            <option value="1">yes</option>
+                                        </select>
+                                        @error('is_popular')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
                                     <button class="btn btn-primary float-end" type="submit">Submit</button>
                                 </form>
 
